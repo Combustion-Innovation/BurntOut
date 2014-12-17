@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/CircularImageView"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/google-play-services_lib"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/FacebookSDK"/>
+	<classpathentry exported="true" kind="lib" path="I:/Apps/apps/apps2/httpcomponents-client-4.3.5/lib/commons-codec-1.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="I:/Apps/apps/apps2/httpcomponents-client-4.3.5/lib/commons-logging-1.1.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="I:/Apps/apps/apps2/httpcomponents-client-4.3.5/lib/fluent-hc-4.3.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="I:/Apps/apps/apps2/httpcomponents-client-4.3.5/lib/httpclient-4.3.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="I:/Apps/apps/apps2/httpcomponents-client-4.3.5/lib/httpclient-cache-4.3.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="I:/Apps/apps/apps2/httpcomponents-client-4.3.5/lib/httpcore-4.3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="I:/Apps/apps/apps2/httpcomponents-client-4.3.5/lib/httpmime-4.3.5.jar"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/android-support-v7-appcompat"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/daniel/Desktop/android/libraries/picasso-2.3.4.jar"/>
+	<classpathentry kind="output" path="bin/classes"/>
+</classpath>
