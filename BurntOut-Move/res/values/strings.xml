@@ -33,6 +33,7 @@
     <string name="title_activity_notification">Notifications</string>
     <string name="app_id">797834753569041</string>
     <string name="intro">Capture a picture to crop!</string>
+    <string name="fb_app_id">797834753569041</string>
     
     <string name="picture">Picture</string>
     <string name="capture">Launch Camera</string>

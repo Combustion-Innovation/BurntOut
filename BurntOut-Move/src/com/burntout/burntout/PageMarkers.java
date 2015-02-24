@@ -5,8 +5,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -53,45 +51,50 @@ public class PageMarkers extends LinearLayout {
 		this.currentPage = currentPage;
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void makeView(int currentPage) {
 		
-		
-		this.removeAllViews();
-		
-		this.currentPage = currentPage;
-		
-		this.container = new LinearLayout(c);
-		this.addView(container);
-		
-		this.container.setOrientation(LinearLayout.HORIZONTAL);
-		this.container.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-		this.container.setGravity(Gravity.CENTER);
+		if(totalPages > 1) {
 		
 		
-		for(int i=0; i<totalPages; i++) {
+			this.removeAllViews();
+			
+			this.currentPage = currentPage;
+			
+			this.container = new LinearLayout(c);
+			this.addView(container);
+			
+			this.container.setOrientation(LinearLayout.HORIZONTAL);
+			this.container.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+			this.container.setGravity(Gravity.CENTER);
 			
 			
-			ImageView im = new ImageView(c);
-			this.container.addView(im);
-			im.setLayoutParams(new LayoutParams(10, 10));
-			LinearLayout.LayoutParams margins = (LinearLayout.LayoutParams)im.getLayoutParams();
-			margins.setMargins(0, 0, 10, 0);
-			im.setLayoutParams(margins);
-			
-			
-			if(i == currentPage) {
-				im.setBackgroundResource(R.drawable.pagemarkerwhite);
+			for(int i=0; i<totalPages; i++) {
+				
+				
+				ImageView im = new ImageView(c);
+				this.container.addView(im);
+				im.setLayoutParams(new LayoutParams(10, 10));
+				LinearLayout.LayoutParams margins = (LinearLayout.LayoutParams)im.getLayoutParams();
+				margins.setMargins(0, 0, 10, 0);
+				im.setLayoutParams(margins);
+				
+				
+				if(i == currentPage) {
+					im.setBackgroundResource(R.drawable.pagemarkerwhite);
+				}
+				else {
+					im.setBackgroundResource(R.drawable.pagemarkergrey);
+				}
+				Log.d("imagedone", Integer.toString(i));
 			}
-			else {
-				im.setBackgroundResource(R.drawable.pagemarkergrey);
+			
+			
+			if(this.currentPage > totalPages -1)
+			{
+				this.currentPage = totalPages;
 			}
-			Log.d("imagedone", Integer.toString(i));
-		}
 		
-		
-		if(this.currentPage > totalPages -1)
-		{
-			this.currentPage = totalPages;
 		}
 		
 	}

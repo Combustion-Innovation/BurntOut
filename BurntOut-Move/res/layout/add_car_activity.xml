@@ -16,7 +16,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="20dp"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -139,12 +138,12 @@
                 android:layout_marginRight="10dp" >
 
                   <com.burntout.burntout.StatePicker
-          			  android:id="@+id/statepicker_view2"
-         			   style="@style/SpinnerAsEditText"
-          			  android:layout_width="60dp"
-         		     android:layout_height="fill_parent"
-          		     android:gravity="center"
-           			 android:layout_marginRight="14dp" />
+                      android:id="@+id/statepicker_view2"
+                      style="@style/SpinnerAsEditText"
+                      android:layout_width="70dp"
+                      android:layout_height="fill_parent"
+                      android:layout_marginRight="14dp"
+                      android:gravity="center" />
 
                 <EditText
                     android:id="@+id/plate_number"
@@ -166,7 +165,7 @@
                 android:layout_marginBottom="20dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/addvehiclebutton_2x"
                 android:text="Add Vehicle"
                 android:textColor="#ffffff" />

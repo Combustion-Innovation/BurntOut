@@ -4,8 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
+
+
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -16,13 +17,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Toast;
 
 public class DebugActivity extends Activity implements Post.Communicator {
 	
 	private ProgressDialog pm;
+	@SuppressWarnings("unused")
 	private Post login;
 	private String email, password;
 	public List<Vehicle> vehicleList;
@@ -35,6 +35,7 @@ public class DebugActivity extends Activity implements Post.Communicator {
 		email = "genprotrans@yahoo.com";
 		vehicleList = new ArrayList<Vehicle>();
 		
+		@SuppressWarnings("unused")
 		Bundle bundle = getIntent().getExtras();
 		
 		

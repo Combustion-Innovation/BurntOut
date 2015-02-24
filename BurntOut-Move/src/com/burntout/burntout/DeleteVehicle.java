@@ -1,14 +1,17 @@
 package com.burntout.burntout;
 
 import java.util.ArrayList;
-import java.util.List;
+
+
+
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.burntout.burntout.DeleteVehiclesArrayAdapter.Communicator;
+
+
+
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -22,12 +25,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -74,6 +73,7 @@ public class DeleteVehicle extends Activity implements Post.Communicator, Delete
   		bar.setSubtitle("Delete Vehicle");
 		bar.setDisplayHomeAsUpEnabled(true);
 		
+		@SuppressWarnings("unused")
 		Bundle bundle = getIntent().getExtras();
 		
 		SharedPreferences sharedPref = this.getSharedPreferences(
@@ -124,6 +124,7 @@ public class DeleteVehicle extends Activity implements Post.Communicator, Delete
 	public void deleteThisVehicle(String plate_number, int pos) {
 		
 		//after gotResponse(), delete vehicle from array in memory
+		@SuppressWarnings("unused")
 		Vehicle deletedVehicle = arrayAdapter.getItem(pos);
 	//	arrayAdapter.remove(deletedVehicle);
 		myVehicles.remove(pos);		
@@ -145,7 +146,7 @@ public class DeleteVehicle extends Activity implements Post.Communicator, Delete
 	
 	public void deleteFromDb(String plate_number, String email) {
 		
-		pm = new ProgressDialog(this);
+		pm = new ProgressDialog(this, R.style.MyTheme);
 		pm.show();
 		
 		deleteVehicle = new Post();

@@ -1,18 +1,9 @@
 package com.burntout.burntout;
 
 
-import java.util.ArrayList;
-
-
-
-
-
-
-
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -22,13 +13,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.view.View.OnTouchListener;
 
 
+@SuppressLint({ "ClickableViewAccessibility", "InflateParams" })
 public class AutoPicker extends HorizontalScrollView implements OnTouchListener {
 	private static final int SWIPE_MIN_DISTANCE = 5;
 	private static final int SWIPE_THRESHOLD_VELOCITY = 300;
@@ -117,6 +108,7 @@ public class AutoPicker extends HorizontalScrollView implements OnTouchListener 
 	      setFeatureItems(context);
 	}
 
+	@SuppressWarnings("deprecation")
 	public void setFeatureItems(Context c){
 		ViewHolder holder = null;
 		LayoutInflater mInflater = (LayoutInflater) c.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
@@ -233,6 +225,7 @@ public class AutoPicker extends HorizontalScrollView implements OnTouchListener 
 		}
 		
 		private class ViewHolder {
+			@SuppressWarnings("unused")
 			RelativeLayout listItem;
 			ImageView vehicleImage;
 			TextView vehicleText;

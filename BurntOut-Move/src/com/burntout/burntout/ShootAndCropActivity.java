@@ -37,11 +37,14 @@ public class ShootAndCropActivity extends Activity implements OnClickListener {
 	boolean picTaken = false;
 	Bitmap thePic;
 	
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.camera);
+        
+        picUri = Uri.parse(getIntent().getExtras().get(MediaStore.EXTRA_OUTPUT).toString());
         
         //retrieve a reference to the UI button
         Button captureBtn = (Button)findViewById(R.id.capture_btn);
@@ -49,6 +52,7 @@ public class ShootAndCropActivity extends Activity implements OnClickListener {
         captureBtn.setOnClickListener(this);
         
         Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, picUri);
     	//we will handle the returned data in onActivityResult
         startActivityForResult(captureIntent, CAMERA_CAPTURE);
     }
@@ -61,6 +65,7 @@ public class ShootAndCropActivity extends Activity implements OnClickListener {
         	try {
 	        	//use standard intent to capture an image
 	        	Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+	        	captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, picUri);
 	        	//we will handle the returned data in onActivityResult
 	            startActivityForResult(captureIntent, CAMERA_CAPTURE);
         	}
@@ -81,7 +86,7 @@ public class ShootAndCropActivity extends Activity implements OnClickListener {
     		//user is returning from capturing an image using the camera
     		if(requestCode == CAMERA_CAPTURE){
     			//get the Uri for the captured image
-    			picUri = data.getData();
+    			//picUri = data.getData();
     			//carry out the crop operation
     			performCrop();
     		}

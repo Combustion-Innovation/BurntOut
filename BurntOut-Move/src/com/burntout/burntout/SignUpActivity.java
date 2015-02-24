@@ -9,9 +9,9 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
+
 import android.content.Intent;
-import android.content.SharedPreferences;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -109,7 +109,7 @@ public class SignUpActivity extends Activity  implements Post.Communicator {
 						
 						
 					
-						pm = new ProgressDialog(this);
+						pm = new ProgressDialog(this, R.style.MyTheme);
 						pm.show();
 			
 						login = new Post();

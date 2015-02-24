@@ -21,15 +21,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class SettingsActivity extends Activity implements Post.Communicator {
 	Post login;
@@ -45,6 +42,7 @@ public class SettingsActivity extends Activity implements Post.Communicator {
 	SharedPreferences sharedPref;
 	SharedPreferences.Editor editor;
 	int logintype;
+	@SuppressWarnings("unused")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -227,6 +225,20 @@ public class SettingsActivity extends Activity implements Post.Communicator {
 	        	*/
 	        	Intent returnIntent = new Intent();
 				returnIntent.putExtra("logout","yes");
+				 if(vehiclesEdited) {
+		            	SerializedObject serializedObject = new SerializedObject(myVehicles);
+		                returnIntent.putExtra("vehiclesEdited", "1");
+		                returnIntent.putExtra("vehicles", serializedObject);
+		            }
+		            else {
+		            	returnIntent.putExtra("vehiclesEdited", "0");
+		            }
+		            if(profileEdited) {
+		            	returnIntent.putExtra("profileEdited", 1);
+		            }
+		            else {
+		            	returnIntent.putExtra("profileEdited", 0);
+		            }
 				setResult(RESULT_OK,returnIntent);
 				finish();
 	        }
@@ -262,6 +274,7 @@ public class SettingsActivity extends Activity implements Post.Communicator {
 	}
 	*/
 
+	@SuppressWarnings("unused")
 	@Override
 	public void gotResponse(JSONObject s) {
 		// TODO Auto-generated method stub
@@ -270,6 +283,7 @@ public class SettingsActivity extends Activity implements Post.Communicator {
 			if(s.getString("status").equals("one")) {
 				Log.d("email", email);
 				GcmRegistration gcmRegistration = new GcmRegistration(email, this);
+				
 					
 				Log.d("edited", "true");
 			}

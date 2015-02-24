@@ -16,21 +16,15 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -193,7 +187,7 @@ public void addReportAutoPicker() {
 
 	public void loginBurnt(String email, String plateState, String plateNumber, String lightsOut, String extraMsg, String vTypeString) {
 		
-		pm = new ProgressDialog(this);
+		pm = new ProgressDialog(this, R.style.MyTheme);
 		pm.show();
 
 		reportVehicle = new Post();
@@ -231,9 +225,13 @@ public void addReportAutoPicker() {
 				
 				finish();
 			}
-			else {
+			else if(s.getString("status").equals("two")){
 				Toast.makeText(this, "Error Reporting Burnout", Toast.LENGTH_LONG).show();
 			   pm.dismiss();
+			}
+			else {
+				Toast.makeText(this, "Error:  Cannot report yourself", Toast.LENGTH_LONG).show();
+				pm.dismiss();
 			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -242,6 +240,7 @@ public void addReportAutoPicker() {
 		
 	}
 
+	@SuppressWarnings("unused")
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int position,
 			long id) {
@@ -280,6 +279,7 @@ public void addReportAutoPicker() {
 		pageMarkers.makeView(currentPage);
 	}
 	
+	@SuppressWarnings("unused")
 	public void setTextFields(int width) {
 		
 		int frameWidth = 0;

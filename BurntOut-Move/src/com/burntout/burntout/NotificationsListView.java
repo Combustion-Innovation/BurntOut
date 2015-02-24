@@ -7,17 +7,14 @@ import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
-import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.Scroller;
-import android.widget.Toast;
-import android.view.View.OnTouchListener;
+
 public class NotificationsListView extends AdapterView<ListAdapter>  {
 
 	public boolean mAlwaysOverrideTouch = true;
@@ -36,6 +33,7 @@ public class NotificationsListView extends AdapterView<ListAdapter>  {
 	private OnItemClickListener mOnItemClicked;
 	private OnItemLongClickListener mOnItemLongClicked;
 	private boolean mDataChanged = false;
+	@SuppressWarnings("unused")
 	private GestureDetector mGestureDetector;
 	private int mItems;
 	private int mActiveFeature = 0;
@@ -136,6 +134,7 @@ public class NotificationsListView extends AdapterView<ListAdapter>  {
 		//TODO: implement
 	}
 	
+	@SuppressWarnings("deprecation")
 	private void addAndMeasureChild(final View child, int viewPos) {
 		LayoutParams params = child.getLayoutParams();
 		if(params == null) {

@@ -4,20 +4,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
+
+
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Toast;
+
 
 public class carAnimator extends FrameLayout{
 		ArrayList<littleLight>lights;
@@ -162,6 +161,7 @@ public class carAnimator extends FrameLayout{
 		List<String> list = new ArrayList<String>(Arrays.asList(labels.split(" ")));
 		List<String> vehicleLabels = getLabelsForType(carType);
 		List<Integer> vehicleColors = getColorsForType(carType);
+		@SuppressWarnings("unused")
 		List<Integer> frames = getFrames(carType);
 		lights = new ArrayList<littleLight>();
 		List<Integer> vehicleFrames = getFrames(carType);
@@ -373,6 +373,7 @@ public class carAnimator extends FrameLayout{
 		final View front = frontView;
 		final View back = backView;
 		animrunning = true;
+		@SuppressWarnings("unused")
 		int counter = 0;
 		
 		

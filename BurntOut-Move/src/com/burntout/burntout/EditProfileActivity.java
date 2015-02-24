@@ -17,7 +17,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -129,7 +128,7 @@ public class EditProfileActivity extends Activity implements Post.Communicator {
 	
 	public void submitClick(View v) {
 		
-		pm = new ProgressDialog(this);
+		pm = new ProgressDialog(this, R.style.MyTheme);
 		pm.show();
 		
 		editProfile = new Post();

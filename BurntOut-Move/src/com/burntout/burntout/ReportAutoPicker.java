@@ -1,34 +1,17 @@
 package com.burntout.burntout;
 
-
-
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONObject;
-
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
+
 
 
 
@@ -94,6 +77,7 @@ public ReportAutoPicker(Context context, int resourceId, List<RAPItem> rIDs) {
 /*private view holder class*/
 private class ViewHolder {
 
+	@SuppressWarnings("unused")
 	RelativeLayout listItem;
 	ImageView rapFrontPic, rapBackPic;
 	

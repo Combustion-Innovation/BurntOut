@@ -1,23 +1,17 @@
 package com.burntout.burntout;
 
-import java.util.ArrayList;
+
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.text.Html;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 @SuppressLint("NewApi")
 public class VehicleTypeManager extends LinearLayout {
@@ -53,6 +47,7 @@ public class VehicleTypeManager extends LinearLayout {
 		
 	}
 	
+	@SuppressWarnings({ "unused", "deprecation" })
 	@SuppressLint("NewApi") 
 	public void initialSetUp(Context c, int type, int frontImg, int backImg)
 	{

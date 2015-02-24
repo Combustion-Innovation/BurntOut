@@ -44,7 +44,7 @@ public class VehicleEditor implements Post.Communicator {
 	public void deleteThisVehicle() {
 		
 		String plate_number = this.vehicle.getPlateNumber();
-		pm = new ProgressDialog(this.c);
+		pm = new ProgressDialog(this.c, R.style.MyTheme);
 		pm.show();
 		deleteVehicle = new Post();
 		deleteVehicle.setCommunicator(this);

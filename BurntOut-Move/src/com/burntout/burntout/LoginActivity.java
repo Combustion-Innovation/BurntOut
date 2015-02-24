@@ -4,10 +4,8 @@ package com.burntout.burntout;
 
 
 
-import java.io.IOException;
-import java.net.MalformedURLException;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -29,11 +27,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ImageView.ScaleType;
 import android.widget.RelativeLayout;
+import android.support.v4.app.FragmentActivity;
+
+
+
+
+
+
+
+
 
 
 
@@ -43,17 +49,16 @@ import com.facebook.*;
 import com.facebook.android.Facebook;
 import com.facebook.model.*;
 import com.facebook.widget.*;
-import com.facebook.*;
-import com.facebook.model.*;
-import com.facebook.widget.*;
+
 
 
  
-public class LoginActivity extends Activity implements Post.Communicator {
+public class LoginActivity extends FragmentActivity implements Post.Communicator, Communicator {
 	 RelativeLayout main;
 	 ImageView myImage;
 	 ProgressDialog pm;
 	 Post login;
+	 Bundle savedInstanceState;
 	
 	 ArrayList<EditText>inputs;
 	 Facebook facebook;
@@ -74,90 +79,28 @@ public class LoginActivity extends Activity implements Post.Communicator {
     String device;
     String email;
     String token;
-    private LoginButton facebookButton;
-    private TextView facebookLoginStatus;
-    RelativeLayout mainrelativelayout;
+    @SuppressWarnings("unused")
+	private LoginButton facebookButton;
+    @SuppressWarnings("unused")
+	private TextView facebookLoginStatus;
+    RelativeLayout mainrelativelayout, fbLoginHolder;
     int isFBLogin;
     boolean isLoggedIn;
     boolean initialLogin = true;
+    FBFragment fbFragment;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.login_screen);
-			
+			this.savedInstanceState = savedInstanceState;
 			isLoggedIn = false;
 			
 			pm = null;
-			
-			
-			
-			
-			
+						
 			mainrelativelayout = (RelativeLayout)findViewById(R.id.mainView);
-			
-			facebookButton = (LoginButton) findViewById(R.id.authButton);
-			facebookButton.setReadPermissions(Arrays.asList("basic_info","email"));
-			
-			facebookButton.setUserInfoChangedCallback(new LoginButton.UserInfoChangedCallback() {
-	            @Override
-	            public void onUserInfoFetched(GraphUser user) {
-	            			LoginActivity.this.user = user;
-	            			
-	    					
-	                updateUI();
-	                // It's possible that we were waiting for this.user to be populated in order to post a
-	                // status update.
-	           
-	            }
-			});   
-	            
-	            
-	            if(checkLoginType() == 1)
-	            {
-	            	Session.openActiveSession(this,  true, new Session.StatusCallback() {
-	    				
-	    				@Override
-	    				public void call(Session session, SessionState state, Exception exception) {
-	    					// TODO Auto-generated method stub
-	    					if(session.isOpened()) {
-	    						
-	    						Request.newMeRequest(session,  new Request.GraphUserCallback() {
-	    							
-	    							@Override
-	    							public void onCompleted(GraphUser user, Response response) {
-	    								if(user != null) {
-	    									// TODO Auto-generated method stub
-	    									String fname = user.getFirstName();
-	    									String lname = user.getLastName();
-	    									String email = (String) user.asMap().get("email");
-	    									String fbID = user.getId();
-	    									picture = "https://graph.facebook.com/" + user.getId() + "/picture";
-	    									isFBLogin = 1;
-	    								}
-	    								
-	    							}
-	    						}).executeAsync();
-	    					}
-	    					
-	    				}
-	    			});
-	            }
-	            
-	            
-			
-	            
-	        
-			
-			
-	
-			
-			//Debugging activity redirect
-			
-			/*
-			Intent intent = new Intent(this, DebugActivity.class);
-			startActivity(intent);
-			*/
+			fbLoginHolder = (RelativeLayout)findViewById(R.id.fb_login_holder);
+						
 			
 			bye();
 			int[] ids = {R.id.email, R.id.password};
@@ -168,7 +111,9 @@ public class LoginActivity extends Activity implements Post.Communicator {
 				EditText b =  (EditText)findViewById(ids[i]);
 				inputs.add(b);
 			}
-
+			
+			
+			
 			fixLayout();
 			
 			checkIfLoggedIn();
@@ -186,10 +131,20 @@ public class LoginActivity extends Activity implements Post.Communicator {
 	
 	     main  = (RelativeLayout)findViewById(R.id.mainView);
 		 myImage = new ImageView(this);
-		 myImage.setImageResource(R.drawable.splash);
+		 
+		 int wid =   (int) (getResources().getDisplayMetrics().widthPixels );
+		 int height =   (int) (getResources().getDisplayMetrics().heightPixels);
+		 Log.d("width", Integer.toString(wid));
+		 Log.d("height", Integer.toString(height));
+		 if(height >= 1280) {
+			 myImage.setImageResource(R.drawable.splash);
+		 }
+		 else {
+			 myImage.setImageResource(R.drawable.splash2);
+		 }
+		 
 		 myImage.setScaleType(ScaleType.FIT_XY);
-		 int wid =   (int) (this.getResources().getDisplayMetrics().widthPixels );
-		 int height =   (int) (this.getResources().getDisplayMetrics().heightPixels);
+		 
 		 main.addView(myImage);
 		 main.bringChildToFront(myImage);
 		 myImage.getLayoutParams().height = height;
@@ -211,6 +166,7 @@ public class LoginActivity extends Activity implements Post.Communicator {
 			            		
 							main.removeView(myImage);
 							checkIfLoggedIn();
+							addFBManager();
 			            	
 			            }
 			        }, 3000);
@@ -241,11 +197,96 @@ public class LoginActivity extends Activity implements Post.Communicator {
 				
 			}
 			
-			facebookButton.getLayoutParams().width = wid;
+			//facebookButton.getLayoutParams().width = wid;
 			Button ba = (Button)findViewById(R.id.loginbutton);
 			ba.getLayoutParams().width = wid;
-	
+			/*
+			ArrayList<String> fbPermissions = new ArrayList<String>();
+			fbPermissions.add("public_profile");
+			fbPermissions.add("email");
+			fbPermissions.add("user_photos");
+			
+			fbFragment = LoginManager.getFBLogin();
+			fbFragment.setPermissions(fbPermissions);
+			
+			fbFragment.setCallback(new Request.GraphUserCallback() {
+				
+				@Override
+				public void onCompleted(GraphUser sentUser, Response response) {
+					// TODO Auto-generated method stub
+					
+					user = sentUser;
+					updateUI();
+					
+					firstname = user.getFirstName();
+					lastname = user.getLastName();				
+					email = (String) user.asMap().get("email");
+					fbid = user.getId();
+					picture = "https://graph.facebook.com/" + user.getId() + "/picture";
+					isFBLogin = 1;
+					
+				}
+			});
+			
+			if (savedInstanceState == null) {
+				
+			    getSupportFragmentManager()
+			        .beginTransaction()
+			        .add(android.R.id.content, fbFragment)
+			        .commit();
+			} else {
+			    // Or set the fragment from restored state info
+			    // this will be custom code
+			}
+			*/
 		}	
+		
+		public void addFBManager() {
+			
+			
+			ArrayList<String> fbPermissions = new ArrayList<String>();
+			fbPermissions.add("public_profile");
+			fbPermissions.add("email");
+			fbPermissions.add("user_photos");
+			
+					
+			fbFragment = LoginManager.getFBLogin();
+			
+			fbFragment.setPermissions(fbPermissions);
+					
+			fbFragment.setCallback(new Request.GraphUserCallback() {
+						
+				@Override
+				public void onCompleted(GraphUser sentUser, Response response) {
+					// TODO Auto-generated method stub
+					
+					user = sentUser;
+					updateUI();
+					
+					firstname = user.getFirstName();
+					lastname = user.getLastName();				
+					email = (String) user.asMap().get("email");
+					fbid = user.getId();
+					picture = "https://graph.facebook.com/" + user.getId() + "/picture";
+					isFBLogin = 1;
+					
+				}
+			});
+			
+			
+			if (savedInstanceState == null) {
+				
+			    getSupportFragmentManager()
+			        .beginTransaction()
+			        .add(R.id.fb_login_holder, fbFragment)
+			        .commit();
+			} else {
+			    // Or set the fragment from restored state info
+			    // this will be custom code
+				
+			}
+			
+		}
 	
 		
 	
@@ -284,7 +325,7 @@ public class LoginActivity extends Activity implements Post.Communicator {
 				if(validated())
 				{
 				
-				pm = new ProgressDialog(this);
+				pm = new ProgressDialog(this, R.style.MyTheme);
 				pm.show();
 		
 				login = new Post();
@@ -379,7 +420,12 @@ public class LoginActivity extends Activity implements Post.Communicator {
 			
 			String email = inputs.get(0).getText().toString();
 			String password = inputs.get(1).getText().toString();
-			return true;
+			if(email.length() > 0 && password.length() > 0) {
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 		
 
@@ -452,12 +498,13 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
            }
     }
     else if(requestCode == 3) {
-    	
+    	//return from profile
     	if(resultCode == RESULT_OK) {
     		
     		Session.getActiveSession().closeAndClearTokenInformation();
     		Session.setActiveSession(null);
     		isFBLogin =0;
+    		
     		
     	}
     	else
@@ -468,13 +515,21 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     	
     	}
     	
-    	facebookButton.setEnabled(true);
+    	fbFragment.logout(this);
     	SharedPreferences sharedPref = this.getSharedPreferences(
 				  getString(R.string.pref), Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = sharedPref.edit();
 		
 		editor.clear();
 		editor.commit();
+		
+		for(int i=0;i<inputs.size();i++)
+		{
+			
+			inputs.get(i).setText("");
+			inputs.get(i).clearFocus();
+		}
+	
     }
     else
     {
@@ -484,6 +539,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     }
 }//onActivityResult
 
+@SuppressWarnings("unused")
 private Session.StatusCallback callback = new Session.StatusCallback() {
     @Override
     public void call(Session session, SessionState state, Exception exception) {
@@ -498,6 +554,7 @@ private enum PendingAction {
     POST_PHOTO,
     POST_STATUS_UPDATE
 }
+@SuppressWarnings("unused")
 private UiLifecycleHelper uiHelper;
 
 
@@ -505,6 +562,7 @@ private UiLifecycleHelper uiHelper;
 
 
 
+@SuppressWarnings("unused")
 private FacebookDialog.Callback dialogCallback = new FacebookDialog.Callback() {
     @Override
     public void onError(FacebookDialog.PendingCall pendingCall, Exception error, Bundle data) {
@@ -572,6 +630,7 @@ private void updateUI() {
     }
 }
 
+@SuppressWarnings("unused")
 private void logout(){
     // clear any user information
     isLoggedIn = false;
@@ -591,6 +650,61 @@ private void logout(){
     finish();
 }
 
+	public void refreshFB() {
+		
+		fbFragment = null;
+		
+		
+		
+		ArrayList<String> fbPermissions = new ArrayList<String>();
+		fbPermissions.add("public_profile");
+		fbPermissions.add("email");
+		fbPermissions.add("user_photos");
+		
+				
+		fbFragment = LoginManager.getFBLogin();
+		
+		fbFragment.setPermissions(fbPermissions);
+				
+		fbFragment.setCallback(new Request.GraphUserCallback() {
+					
+			@Override
+			public void onCompleted(GraphUser sentUser, Response response) {
+				// TODO Auto-generated method stub
+				
+				user = sentUser;
+				updateUI();
+				
+				firstname = user.getFirstName();
+				lastname = user.getLastName();				
+				email = (String) user.asMap().get("email");
+				fbid = user.getId();
+				picture = "https://graph.facebook.com/" + user.getId() + "/picture";
+				isFBLogin = 1;
+				
+			}
+		});
+		
+		/*
+		getSupportFragmentManager()
+        .beginTransaction()
+        .add(R.id.fb_login_holder, fbFragment);
+        .commit();
+		*/
+		/*
+		if (savedInstanceState == null) {
+			
+		    getSupportFragmentManager()
+		        .beginTransaction()
+		        .add(R.id.fb_login_holder, fbFragment)
+		        .commit();
+		} else {
+		    // Or set the fragment from restored state info
+		    // this will be custom code
+			
+		}
+		*/
+	}
 
 
 }

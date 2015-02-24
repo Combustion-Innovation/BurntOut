@@ -3,7 +3,7 @@ package com.burntout.burntout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.Toast;
+
  
 public class CustomOnItemSelectedListener implements OnItemSelectedListener {
 	
@@ -11,6 +11,7 @@ public class CustomOnItemSelectedListener implements OnItemSelectedListener {
  
   public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
 	
+		@SuppressWarnings("unused")
 		String thisItem = parent.getItemAtPosition(pos).toString();
   }
  

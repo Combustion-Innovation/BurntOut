@@ -13,7 +13,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public class GcmRegistration implements Post.Communicator {
     String regid;
     
     String email;
-    
+    	
     SharedPreferences sharedPref;
     
     public GcmRegistration(String email, Context c) {
@@ -62,14 +62,23 @@ public class GcmRegistration implements Post.Communicator {
     	 
 
          // Check device for Play Services APK. If check succeeds, proceed with GCM registration.
+    	 Log.d("GCM service available", Boolean.toString(checkPlayServices()));
          if (checkPlayServices()) {
              gcm = GoogleCloudMessaging.getInstance(context);
              regid = getRegistrationId(context);
+             
+             Log.d("regid", regid);
 
              if (regid.isEmpty()) {
                  registerInBackground();
              }
+             else {
+            	 sendRegistrationIdToBackend();
+             }
+             
+             
          } else {
+        	 
              Log.i(TAG, "No valid Google Play Services APK found.");
          }
     	
@@ -257,7 +266,7 @@ public class GcmRegistration implements Post.Communicator {
     	ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
     	nameValuePairs.add(new BasicNameValuePair("email", this.email));
     	nameValuePairs.add(new BasicNameValuePair("regid", regid));
-    	Log.d("email", email);
+    	Log.d("email from sendregbackend", email);
     	
     	addRegid.executePosts(nameValuePairs, "http://combustioninnovation.com/production/Goodyear/php/setgooglepushid.php");
     	

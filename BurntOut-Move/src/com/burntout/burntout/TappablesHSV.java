@@ -2,24 +2,21 @@ package com.burntout.burntout;
 
 
 import java.util.ArrayList;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.view.View.OnTouchListener;
 
 
+@SuppressLint("ClickableViewAccessibility")
 public class TappablesHSV extends HorizontalScrollView implements OnTouchListener, tappableManager.Communicator {
 	private static final int SWIPE_MIN_DISTANCE = 5;
 	private static final int SWIPE_THRESHOLD_VELOCITY = 300;
@@ -40,6 +37,7 @@ public class TappablesHSV extends HorizontalScrollView implements OnTouchListene
 	
 	int width;
 
+	@SuppressWarnings("rawtypes")
 	private ArrayList mItems = null;
 	private GestureDetector mGestureDetector;
 	private int mActiveFeature = 0;
@@ -160,6 +158,7 @@ public void	setManagerImage(int position)
 		
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void setFeatureItems(){
 	  internalWrapper = new LinearLayout(getContext());
 		internalWrapper.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));

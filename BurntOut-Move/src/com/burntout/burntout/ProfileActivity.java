@@ -1,20 +1,22 @@
 package com.burntout.burntout;
 
-import java.io.BufferedInputStream;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.Serializable;
-import java.net.URI;
-import java.net.URL;
-import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+
+
+
+
+
+
+
+
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -30,42 +32,25 @@ import org.json.JSONObject;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-import com.burntout.burntout.NotificationsAdapter.Communicator;
 import com.pkmmte.circularimageview.CircularImageView;
 
+
+
+
+
+
+
+
+
+import android.animation.Animator;
+import android.animation.Animator.AnimatorListener;
+import android.animation.AnimatorSet;
+import android.animation.ValueAnimator;
+import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -74,34 +59,39 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Parcelable;
 import android.os.StrictMode;
 import android.os.StrictMode.ThreadPolicy;
 import android.provider.MediaStore;
 import android.text.Html;
+import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.view.ViewGroup.LayoutParams;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+
+
+
+
+
+
+
 
 import com.squareup.picasso.Picasso;
-import com.pkmmte.circularimageview.*;
+
 public class ProfileActivity extends Activity implements Post.Communicator, VehicleViewer.Communicator, VehicleEditor.Communicator, NotificationsAdapter.Communicator, HorizontalListView.Communicator, NotificationsListView.Communicator, UploadPicture.Communicator, com.burntout.burntout.GetNewNotifiications.Communicator {
 	
 	Button ba;
@@ -135,10 +125,15 @@ public class ProfileActivity extends Activity implements Post.Communicator, Vehi
 	private Uri mImageUri;
 	boolean canClick = true;
 	
+	String lastFilename;
+	
 	ArrayList<TaskManager> taskManagers;
 	
-	 private final ImageDownloader mDownload = new ImageDownloader();
+	 @SuppressWarnings("unused")
+	private final ImageDownloader mDownload = new ImageDownloader();
 	private Button reportButton;
+	@SuppressLint("CutPasteId")
+	@SuppressWarnings("unused")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -342,15 +337,14 @@ public class ProfileActivity extends Activity implements Post.Communicator, Vehi
 	
 	
 	
-	@SuppressLint("NewApi")
+	@SuppressWarnings("unused")
+	@SuppressLint({ "NewApi", "SimpleDateFormat" })
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		setClickables();
 		canClick = true;
 		checkForNotifications();
 	    if (requestCode == 1) {
-	    	
-	    	
-	    
+	    	//settings return	    
     		
 	    	
 	    	String profEdited = sharedPref.getString("profEdited", null);
@@ -469,74 +463,13 @@ public class ProfileActivity extends Activity implements Post.Communicator, Vehi
 	  //take picture return
 	    if(requestCode == 6) {
 	    	if(resultCode == RESULT_OK) {
-	    		/*
-	    		this.getContentResolver().notifyChange(mImageUri, null);
-	    		ContentResolver cr = this.getContentResolver();
-	    		Bitmap bitmap = null;
-				try {
-					bitmap = android.provider.MediaStore.Images.Media.getBitmap(cr, mImageUri);
-					
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				*/
+	    		
 	    		
 	    		Bitmap bitmap = (Bitmap) data.getExtras().get("bitmap");
-	    		
+	    						
+							
+				File file = new File(mImageUri.getPath());
 				
-				
-				URI uri = (URI) data.getExtras().get("picUri");
-				
-				/*
-				Matrix matrix = new Matrix();
-				
-				ExifInterface exifReader = null;
-				try {
-					exifReader = new ExifInterface(uri);
-				} catch (IOException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
-
-				int orientation = exifReader.getAttributeInt(ExifInterface.TAG_ORIENTATION, -1);
-				
-				Log.d("orientation", Integer.toString(orientation));
-				
-				if (orientation ==ExifInterface.ORIENTATION_NORMAL) {
-
-				      // Do nothing. The original image is fine.
-
-				} else if (orientation == ExifInterface.ORIENTATION_ROTATE_90) {
-
-				       matrix.postRotate(90);
-
-				} else if (orientation == ExifInterface.ORIENTATION_ROTATE_180) {
-
-				       matrix.postRotate(180);
-
-				} else if (orientation == ExifInterface.ORIENTATION_ROTATE_270) {
-
-				      matrix.postRotate(270);
-
-				}
-				*/
-				
-				String path = Environment.getExternalStorageDirectory().getAbsolutePath().toString();
-				String filename = "JPG" + userId;
-				
-				
-				
-				File file = new File(path, filename);
-				
-				/*
-				Bitmap resizedbitmap=Bitmap.createBitmap(bitmap, 0,0 ,bitmap.getWidth(),bitmap.getHeight(),matrix,false);
-				//Bitmap resizedbitmap = Bitmap.createScaledBitmap(resizedbitmap1, resizedbitmap1.getWidth()/2, resizedbitmap1.getHeight()/2, false);
-				 * 
-				 */
 	            ByteArrayOutputStream stream = new ByteArrayOutputStream();
 	            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream);
 	            
@@ -565,7 +498,7 @@ public class ProfileActivity extends Activity implements Post.Communicator, Vehi
 				Log.d("filepath", file.getAbsolutePath());
 				
 				UploadPicture uploadPicture = new UploadPicture();
-				pm = new ProgressDialog(this);
+				pm = new ProgressDialog(this, R.style.MyTheme);
 				pm.show();
 				uploadPicture.setCommunicator(this);
 				uploadPicture.executePosts("http://combustioninnovation.com/production/Goodyear/php/changeprofilepicture.php", file.getAbsolutePath(), myemail);
@@ -582,7 +515,7 @@ public class ProfileActivity extends Activity implements Post.Communicator, Vehi
 	    }
 	    //choose gallery return
 	    if(requestCode == 7) {
-if(resultCode == RESULT_OK && data != null) {
+	    	if(resultCode == RESULT_OK && data != null) {
 	    		
 				
 				
@@ -602,7 +535,8 @@ if(resultCode == RESULT_OK && data != null) {
 	            ByteArrayOutputStream stream = new ByteArrayOutputStream();
 	            Bitmap bitmapImage = BitmapFactory.decodeFile(picturePath);
 	            String path = Environment.getExternalStorageDirectory().getAbsolutePath().toString() + "/";
-	            String filename = "newgallerypic.jpg";
+	            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+	            String filename = timeStamp + "_" + userId + ".jpg";
 	            File file =new File(path,filename);
 	            
 	            
@@ -979,42 +913,50 @@ if(resultCode == RESULT_OK && data != null) {
 		
 		totalNotifications = totalNotifications - 1;
 		
-		
-		pageMarkersNotifications.setTotalPages(notificationList.size());
-		pageMarkersNotifications.makeView(position - 1);
+		if(notificationList.size() > 1) {
+			pageMarkersNotifications.setTotalPages(notificationList.size());
+			pageMarkersNotifications.makeView(position - 1);
+		}
+		else {
+			pageMarkersNotifications.setTotalPages(0);
+			pageMarkersNotifications.makeView(0);
+		}
 		
 		
 		
 		
 		if(notificationList.size() == 0) {
 			notificationButton.setVisibility(View.GONE);
+			
 			notificationContainer.setVisibility(View.GONE);
+			doGoodbyeNotification();
+			
 		}
 		
 	}
 	
 	public void notificationsClick(View v) {
 		if(canClick) {
-		if(!popoverIsOut) {
-		popoverIsOut = true;
-		// TODO Auto-generated method stub
-//		Toast.makeText(context, "Clicked", Toast.LENGTH_LONG).show();
-		notificationContainer.bringToFront();
-		notificationContainer.setVisibility(View.VISIBLE);
-		
-		
-		}
-		else {
+			if(!popoverIsOut) {
+				popoverIsOut = true;
+				// TODO Auto-generated method stub
+				
+				//animOpenNote();
+				animOpenButton();
 			
-			
-		}
+			}
+			else {
+				
+				
+			}
 		
-		canClick = false;
+			canClick = false;
 		}
 	}
 	
 	
 	
+	@SuppressLint("SimpleDateFormat")
 	public void changePicture(View v)
 	{
 		
@@ -1031,9 +973,21 @@ if(resultCode == RESULT_OK && data != null) {
 		    	{
 		    		
 		    		//Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+		    		File directory = new File(Environment.getExternalStorageDirectory() + "/BurntOut/media/");
+		    		if(!directory.exists()) {
+		    			directory.mkdirs();
+		    		}
+		    		
+		    		String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+		    		lastFilename = timeStamp + "_" + userId + ".jpg";
+		    		
+		    		File newImage = new File(directory + lastFilename);
+		    		
+		    	
+		    		
 		    		Intent intent = new Intent(context, ShootAndCropActivity.class);
-		    	    File photo = null;
 		    	    
+		    	    /*
 		    	    try
 		    	    {
 		    	        // place where to store camera taken picture
@@ -1046,7 +1000,8 @@ if(resultCode == RESULT_OK && data != null) {
 		    	        Toast.makeText(context, "Please check SD card! Image shot is impossible!", Toast.LENGTH_LONG).show();;
 		    	        
 		    	    }
-		    	    mImageUri = Uri.fromFile(photo);
+		    	    */
+		    	    mImageUri = Uri.fromFile(newImage);
 		    	    intent.putExtra(MediaStore.EXTRA_OUTPUT, mImageUri);
 		    	    
 		    	    //start camera intent
@@ -1075,6 +1030,7 @@ if(resultCode == RESULT_OK && data != null) {
 		builder.show();
 	}
 	
+	@SuppressWarnings("unused")
 	private File createTemporaryFile(String part, String ext) throws Exception
 	{
 	    File tempDir= Environment.getExternalStorageDirectory();
@@ -1097,7 +1053,25 @@ if(resultCode == RESULT_OK && data != null) {
 		}
 		else
 		{
-		
+			
+			new AlertDialog.Builder(this)
+	        .setIcon(android.R.drawable.ic_dialog_alert)
+	        .setTitle("Burnt Out")
+	        .setMessage("Are you sure you want to Logout?")
+	        .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+	    {
+	        @Override
+	        public void onClick(DialogInterface dialog, int which) {
+	        	Intent returnIntent = new Intent();
+				returnIntent.putExtra("logout","yes");
+				setResult(RESULT_CANCELED,returnIntent);
+				finish();
+	        }
+
+	    })
+	    .setNegativeButton("No", null)
+	    .show();
+			/*
 			if(checkLoginType() == 1)
 			{
 				   Intent output = new Intent();
@@ -1127,6 +1101,7 @@ if(resultCode == RESULT_OK && data != null) {
 			    .show();
 					
 			}
+			*/
 			
 		}
 		
@@ -1159,29 +1134,7 @@ public void checkForNotifications()
 	public void setProfileImagetwo(String picurl)
 	{
 
- 	/*	Bitmap bm = null;
- 		try {
- 			String w = Integer.toString(r.getLayoutParams().width);
- 			//String w = "300";
- 	        URL aURL = new URL(picurl);
- 	        URLConnection conn = aURL.openConnection();
- 	        conn.connect();
- 	        InputStream is = conn.getInputStream();
- 	        BufferedInputStream bis = new BufferedInputStream(is);
- 	        bm = BitmapFactory.decodeStream(bis);
- 	         Drawable d = new BitmapDrawable(getResources(),bm);
- 	        //r.setBackgroundDrawable(d);
- 	        r.setImageDrawable(d);
- 	        r.setBorderWidth(10);
- 	        r.setBorderColor(getResources().getColor(R.color.button_blue));
- 	        
- 	        bis.close();
- 	        is.close();
-
- 	        } catch (Exception e) {
- 	           Log.v("EXCEPTION", "Error getting bitmap", e);
- 	        }
- 	        */
+ 	
 		
 		Picasso.with(this).load(picurl).placeholder(R.drawable.profileplaceholder).error(R.drawable.profileplaceholder).transform(new RoundTransform()).into(r);
 	}
@@ -1193,28 +1146,6 @@ public void checkForNotifications()
 	{
 		CircularImageView r	 = (CircularImageView)findViewById(R.id.profilepic);
  		
- 	/*	Bitmap bm = null;
- 		try {
- 			String w = Integer.toString(r.getLayoutParams().width);
- 			//String w = "300";
- 	        URL aURL = new URL("http://hub60.com/app/php/fetchimage.php?image=" + picurl+ "&width=" + w +"&height=" + w);
- 	        URLConnection conn = aURL.openConnection();
- 	        conn.connect();
- 	        InputStream is = conn.getInputStream();
- 	        BufferedInputStream bis = new BufferedInputStream(is);
- 	        bm = BitmapFactory.decodeStream(bis);
- 	         Drawable d = new BitmapDrawable(getResources(),bm);
- 	        //r.setBackgroundDrawable(d);
- 	        r.setImageDrawable(d);
- 	        r.setBorderWidth(10);
- 	        r.setBorderColor(getResources().getColor(R.color.button_blue));
- 	        
- 	        bis.close();
- 	        is.close();
-
- 	        } catch (Exception e) {
- 	           Log.v("EXCEPTION", "Error getting bitmap", e);
- 	        }*/
 		Picasso.with(this).load(picurl).placeholder(R.drawable.profileplaceholder).error(R.drawable.profileplaceholder).transform(new RoundTransform()).into(r);
 	
 	}
@@ -1248,10 +1179,15 @@ public void checkForNotifications()
 	
 	public void doGoodbyeNotification()
 	{
-		notificationContainer.setVisibility(View.GONE);
+		//notificationContainer.setVisibility(View.GONE);
 		popoverIsOut = false;
 		canClick = true;
 		notificationsAdapter.sayGoodByAni();
+		//animCloseNote();
+		animCloseButton();
+		if(notificationList.size() == 0) {
+			notificationButton.setVisibility(View.GONE);
+		}
 	}
 
 
@@ -1321,6 +1257,14 @@ public void checkForNotifications()
 		try {
 			JSONArray resultArray  = new 	JSONArray(s.getString("results"));
 			createNotificationsArray(resultArray);
+			notificationButton.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					notificationsClick(v);
+				}
+			});
 			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -1333,6 +1277,427 @@ public void checkForNotifications()
 	public void setClickable() {
 		// TODO Auto-generated method stub
 		canClick = true;
+	}
+	
+	@SuppressWarnings("unused")
+	public void animOpenNote() {
+		
+		DisplayMetrics metrics = getResources().getDisplayMetrics();
+		int dpi = (int)metrics.density;
+		
+		checkForNotifications();
+		
+		notificationButton.setVisibility(View.GONE);
+		
+		
+		ImageView button = (ImageView)findViewById(R.id.dummy_button);
+		//button.setVisibility(View.VISIBLE);
+		
+		
+		AnimatorSet animSet = new AnimatorSet();
+		
+		TranslateAnimation anim1 = new TranslateAnimation(0, -60 * dpi, 0, 0);
+		
+		
+		//ObjectAnimator anim1 = ObjectAnimator.ofFloat(notificationButton, "X", origX, destX);
+		//ObjectAnimator anim2 = ObjectAnimator.ofFloat(notificationButton, "Y", origY, destY);
+		anim1.setDuration(500);
+		//anim2.setDuration(800);
+		
+		//animSet.playTogether(anim1, anim2);
+		
+		notificationContainer.setVisibility(View.VISIBLE);
+		notificationContainer.bringToFront();
+		notificationContainer.setAlpha(0f);
+		
+		int width = notificationScroller.getWidth();
+		int height = notificationScroller.getHeight();
+		//notificationContainer.setVisibility(View.GONE);
+		Log.d("width", Integer.toString(width));
+		Log.d("height", Integer.toString(height));
+		
+		
+		anim1.setAnimationListener(new AnimationListener() {
+			
+			@Override
+			public void onAnimationStart(Animation animation) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				// TODO Auto-generated method stub
+				
+				//notificationContainer.setVisibility(View.VISIBLE);
+				notificationContainer.setAlpha(1f);
+				/*
+				notificationContainer.bringToFront();
+				notificationContainer.forceLayout();
+				*/
+				Log.d("animation", "end");
+				
+				
+				
+				DisplayMetrics metrics = getResources().getDisplayMetrics();
+				int dpi = (int)metrics.density;
+				
+				
+				ImageView button = (ImageView)findViewById(R.id.dummy_button);
+				button.setVisibility(View.GONE);
+				
+				
+				
+				//notificationScroller.setVisibility(View.VISIBLE);
+				
+				//notificationScroller.bringToFront();
+				
+				
+				
+				int width = notificationScroller.getWidth();
+				int height = notificationScroller.getHeight();
+				
+				Log.d("width", Integer.toString(width));
+				Log.d("height", Integer.toString(height));
+				//notificationScroller.bringToFront();
+				
+				
+				ValueAnimator anim1 = ValueAnimator.ofInt(0, width);
+				anim1.addUpdateListener(new AnimatorUpdateListener() {
+					
+					@Override
+					public void onAnimationUpdate(ValueAnimator animation) {
+						// TODO Auto-generated method stub
+						int val = (Integer) animation.getAnimatedValue();
+						LayoutParams params = notificationScroller.getLayoutParams();
+						params.width = val;
+						notificationScroller.setLayoutParams(params);
+					}
+				});
+				ValueAnimator anim2 = ValueAnimator.ofInt(0, height);
+				anim2.addUpdateListener(new AnimatorUpdateListener() {
+					
+					@Override
+					public void onAnimationUpdate(ValueAnimator animation) {
+						// TODO Auto-generated method stub
+						int val = (Integer) animation.getAnimatedValue();
+						LayoutParams params = notificationScroller.getLayoutParams();
+						params.height = val;
+						notificationScroller.setLayoutParams(params);
+					}
+				});
+				AnimatorSet animSet = new AnimatorSet();
+				
+				anim1.setDuration(800);
+				anim2.setDuration(800);
+				
+				
+				animSet.playTogether(anim1, anim2);
+				
+				
+				animSet.addListener(new AnimatorListener() {
+					
+					@Override
+					public void onAnimationStart(Animator animation) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void onAnimationRepeat(Animator animation) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void onAnimationEnd(Animator animation) {
+						// TODO Auto-generated method stub
+						//notificationContainer.setVisibility(View.VISIBLE);
+						//notificationScroller.setVisibility(View.VISIBLE);
+						
+						//notificationScroller.forceLayout();
+						notificationContainer.bringToFront();
+						checkForNotifications();
+						//notificationContainer.bringToFront();
+						//FrameLayout frame = (FrameLayout)findViewById(R.id.frameLayouts);
+						//frame.setBackgroundResource(R.color.transparent_black);
+						
+						
+					}
+					
+					@Override
+					public void onAnimationCancel(Animator animation) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
+				
+				
+				
+				animSet.start();
+				
+			}
+				
+			
+
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		
+		//notificationButton.bringToFront();
+		//notificationContainer.setVisibility(View.VISIBLE);
+		//notificationContainer.setAlpha(0);
+		//notificationContainer.bringChildToFront(button);
+		//notificationButton.setVisibility(View.GONE);
+		//notificationContainer.setVisibility(View.GONE);
+		button.setVisibility(View.VISIBLE);
+		button.startAnimation(anim1);
+		
+		//animSet.start();
+		
+	}
+	
+	@SuppressWarnings("unused")
+	public void animCloseNote() {
+		
+		DisplayMetrics metrics = getResources().getDisplayMetrics();
+		int dpi = (int)metrics.density;
+		
+		
+		ImageView button = (ImageView)findViewById(R.id.dummy_button);
+		button.setVisibility(View.GONE);
+		
+		
+		
+		//notificationScroller.setVisibility(View.VISIBLE);
+		
+		//notificationScroller.bringToFront();
+		
+		
+		
+		int width = notificationScroller.getWidth();
+		int height = notificationScroller.getHeight();
+		
+		Log.d("width", Integer.toString(width));
+		Log.d("height", Integer.toString(height));
+		//notificationScroller.bringToFront();
+		
+		
+		ValueAnimator anim1 = ValueAnimator.ofInt(width, 0);
+		anim1.addUpdateListener(new AnimatorUpdateListener() {
+			
+			@Override
+			public void onAnimationUpdate(ValueAnimator animation) {
+				// TODO Auto-generated method stub
+				int val = (Integer) animation.getAnimatedValue();
+				LayoutParams params = notificationScroller.getLayoutParams();
+				params.width = val;
+				notificationScroller.setLayoutParams(params);
+			}
+		});
+		ValueAnimator anim2 = ValueAnimator.ofInt(height, 0);
+		anim2.addUpdateListener(new AnimatorUpdateListener() {
+			
+			@Override
+			public void onAnimationUpdate(ValueAnimator animation) {
+				// TODO Auto-generated method stub
+				int val = (Integer) animation.getAnimatedValue();
+				LayoutParams params = notificationScroller.getLayoutParams();
+				params.height = val;
+				notificationScroller.setLayoutParams(params);
+			}
+		});
+		AnimatorSet animSet = new AnimatorSet();
+		
+		anim1.setDuration(800);
+		anim2.setDuration(800);
+		
+		
+		animSet.playTogether(anim1, anim2);
+		
+		
+		animSet.addListener(new AnimatorListener() {
+			
+			@Override
+			public void onAnimationStart(Animator animation) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onAnimationRepeat(Animator animation) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onAnimationEnd(Animator animation) {
+				// TODO Auto-generated method stub
+				ImageView button = (ImageView)findViewById(R.id.dummy_button);
+				button.setVisibility(View.VISIBLE);
+				button.bringToFront();
+				
+				DisplayMetrics metrics = getResources().getDisplayMetrics();
+				int dpi = (int)metrics.density;
+				
+				notificationContainer.setVisibility(View.GONE);
+				
+				LayoutParams params = notificationScroller.getLayoutParams();
+				params.width = 300 * dpi;
+				params.height = 480 * dpi;
+				notificationScroller.setLayoutParams(params);
+							
+				
+				TranslateAnimation anim1 = new TranslateAnimation(-60 * dpi, 0, 0, 0);
+				anim1.setDuration(500);
+				
+				anim1.setAnimationListener(new AnimationListener() {
+
+					@Override
+					public void onAnimationStart(Animation animation) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onAnimationEnd(Animation animation) {
+						// TODO Auto-generated method stub
+						ImageView button = (ImageView)findViewById(R.id.dummy_button);
+						button.setVisibility(View.GONE);
+						notificationButton.setVisibility(View.VISIBLE);
+						
+					}
+
+					@Override
+					public void onAnimationRepeat(Animation animation) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+				});
+				
+				button.startAnimation(anim1);
+				
+				
+				
+				
+			}
+			
+			@Override
+			public void onAnimationCancel(Animator animation) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		
+		
+		animSet.start();
+		
+	}
+	
+	@SuppressWarnings("unused")
+	public void animOpenButton() {
+		
+		canClick = false;
+		DisplayMetrics metrics = getResources().getDisplayMetrics();
+		int dpi = (int)metrics.density;
+		
+		checkForNotifications();
+		
+		notificationButton.setVisibility(View.GONE);
+		
+		
+		ImageView button = (ImageView)findViewById(R.id.dummy_button);
+		button.setVisibility(View.VISIBLE);
+		AnimatorSet animSet = new AnimatorSet();
+		
+		TranslateAnimation anim1 = new TranslateAnimation(0, -60 * dpi, 0, 0);
+		
+		anim1.setDuration(500);
+		
+		anim1.setAnimationListener(new AnimationListener() {
+
+			@Override
+			public void onAnimationStart(Animation animation) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				// TODO Auto-generated method stub
+				notificationContainer.setVisibility(View.VISIBLE);
+				notificationContainer.bringToFront();
+				ImageView button = (ImageView)findViewById(R.id.dummy_button);
+				button.setVisibility(View.GONE);
+				canClick = true;
+			}
+
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
+		button.startAnimation(anim1);
+		
+	}
+	
+	public void animCloseButton() {
+		
+		canClick = false;
+		ImageView button = (ImageView)findViewById(R.id.dummy_button);
+		button.setVisibility(View.VISIBLE);
+		button.bringToFront();
+		
+		DisplayMetrics metrics = getResources().getDisplayMetrics();
+		int dpi = (int)metrics.density;
+		
+		notificationContainer.setVisibility(View.GONE);
+		
+		TranslateAnimation anim1 = new TranslateAnimation(-60 * dpi, 0, 0, 0);
+		anim1.setDuration(500);
+		
+		anim1.setAnimationListener(new AnimationListener() {
+
+			@Override
+			public void onAnimationStart(Animation animation) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				// TODO Auto-generated method stub
+				ImageView button = (ImageView)findViewById(R.id.dummy_button);
+				button.setVisibility(View.GONE);
+				if(notificationList.size() == 0) {
+					notificationButton.setVisibility(View.GONE);
+				}
+				else {
+					notificationButton.setVisibility(View.VISIBLE);
+				}
+				canClick = true;
+			}
+
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
+		button.startAnimation(anim1);
+		
+		
 	}
 	
 }

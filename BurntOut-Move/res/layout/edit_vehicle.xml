@@ -17,7 +17,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="20dp"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -142,7 +141,7 @@
                   <com.burntout.burntout.StatePicker
                       android:id="@+id/editvehicle_statePicker"
                       style="@style/SpinnerAsEditText"
-                      android:layout_width="60dp"
+                      android:layout_width="70dp"
                       android:layout_height="fill_parent"
                       android:layout_marginRight="14dp"
                       android:gravity="center" />
@@ -161,10 +160,6 @@
 
             </LinearLayout>
 
-            
-
-        
-    
     <Button
         android:id="@+id/editvehicle_submitbtn"
         android:layout_width="fill_parent"
@@ -174,14 +169,11 @@
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/addvehiclebutton_2x"
         android:onClick="submitClicked"
         android:text="Edit Vehicle"
         android:textColor="#ffffff" />
-
-    
-
        
         </LinearLayout>
     </ScrollView>

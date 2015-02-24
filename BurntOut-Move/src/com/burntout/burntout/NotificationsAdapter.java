@@ -1,9 +1,6 @@
 package com.burntout.burntout;
 
-import java.io.BufferedInputStream;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
+
 import java.util.ArrayList;
 
 import org.apache.http.NameValuePair;
@@ -15,31 +12,26 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
+
 import android.os.Handler;
 import android.text.Html;
 import android.text.SpannableString;
-import android.text.style.StyleSpan;
+
 import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
+
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.burntout.burntout.ImageDownloader;
+
 import com.squareup.picasso.Picasso;
 
 public class NotificationsAdapter extends ArrayAdapter<Notification> implements Post.Communicator, carAnimator.Communicator {
@@ -151,7 +143,12 @@ public class NotificationsAdapter extends ArrayAdapter<Notification> implements 
 		underLights.setSpan(new UnderlineSpan(), 0, underlinedLights.length(), 0);
 		//underLights.setSpan(new StyleSpan(Typeface.ITALIC), 0, underLights.length(), 0);
 		holder.hasReportedLights.setText(Html.fromHtml(reportedLightsText + "<u><i>" + underlinedLights + "</i></u>" + " has burnt out."));
-		holder.reportedAgo.setText(rowItem.getCreated());
+		if(rowItem.getCreated().equals("now")) {
+			holder.reportedAgo.setText("Just Now");
+		}
+		else {
+			holder.reportedAgo.setText(rowItem.getCreated() + " Ago");
+		}
 		holder.custom_message.setText(rowItem.getMessage());
 		holder.reporter_name.setText(rowItem.getUser_fname() + " " + rowItem.getUser_lname().substring(0,1));
 		holder.otherReportedCount.setText(rowItem.getNotifier_reported_count());

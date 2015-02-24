@@ -46,6 +46,7 @@ public class StringCheck {
 		return newString;
 	}
 	
+	@SuppressWarnings("unused")
 	public boolean checkSpecialCharsName(String string) {
 		
 		String newString = "";
@@ -65,6 +66,7 @@ public class StringCheck {
 		return true;
 	}
 	
+	@SuppressWarnings("unused")
 	public boolean checkSpecialCharsMakeModel(String string) {
 		
 		String newString = "";
@@ -84,6 +86,7 @@ public class StringCheck {
 		return true;
 	}
 	
+	@SuppressWarnings("unused")
 	public boolean checkSpecialCharsPlateNum(String string) {
 		String newString = "";
 		
@@ -102,6 +105,7 @@ public class StringCheck {
 		return true;
 	}
 	
+	@SuppressWarnings("unused")
 	public boolean checkSpecialCharsMessage(String string) {
 		
 		String newString = "";

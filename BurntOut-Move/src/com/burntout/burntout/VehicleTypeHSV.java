@@ -2,19 +2,16 @@ package com.burntout.burntout;
 
 
 import java.util.ArrayList;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.view.View.OnTouchListener;
 
 
@@ -30,6 +27,7 @@ public class VehicleTypeHSV extends HorizontalScrollView implements OnTouchListe
 	
 	int width;
 
+	@SuppressWarnings("rawtypes")
 	private ArrayList mItems = null;
 	private GestureDetector mGestureDetector;
 	private int mActiveFeature = 0;
@@ -58,6 +56,7 @@ public class VehicleTypeHSV extends HorizontalScrollView implements OnTouchListe
 		this.siblingScroll = v;
 	}
 	
+	@SuppressLint("ClickableViewAccessibility")
 	public void initItems(Context context)
 	{
 
@@ -130,6 +129,7 @@ public void	setManagerImage(int position)
 		internalWrapper.addView(v);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void setFeatureItems(){
 	  internalWrapper = new LinearLayout(getContext());
 		internalWrapper.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
@@ -168,6 +168,7 @@ public void	setManagerImage(int position)
 			return false;
 		}
 	}
+		@SuppressLint("ClickableViewAccessibility")
 		@Override
 		public boolean onTouch(View v, MotionEvent event) {
 			

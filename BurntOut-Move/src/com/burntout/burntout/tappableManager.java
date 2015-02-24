@@ -8,14 +8,11 @@ import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
+
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+
 
 @SuppressLint("NewApi")
 public class tappableManager extends FrameLayout implements TappableLight.Communicator {

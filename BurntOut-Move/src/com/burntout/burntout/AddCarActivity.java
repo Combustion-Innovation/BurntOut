@@ -1,26 +1,13 @@
 package com.burntout.burntout;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
-
-
-
-
-
-
-
 import com.burntout.burntout.StatePicker;
-
-
-
-
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -38,12 +25,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.burntout.burntout.AutoPicker;
+
 
 public class AddCarActivity extends Activity implements Post.Communicator, VehicleTypeHSV.Communicator {
 	
@@ -66,6 +51,7 @@ public class AddCarActivity extends Activity implements Post.Communicator, Vehic
 	public String email, vType, makeModel, vState, vPlateNumber;
 	
 	
+	@SuppressWarnings("unused")
 	private String userID = "2";
 	public int currentVehicle;
 		
@@ -177,7 +163,7 @@ public class AddCarActivity extends Activity implements Post.Communicator, Vehic
 	
 		
 		
-		pm = new ProgressDialog(this);
+		pm = new ProgressDialog(this, R.style.MyTheme);
 		pm.show();
 
 		addVehicle = new Post();

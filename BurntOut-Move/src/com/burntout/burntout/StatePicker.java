@@ -1,8 +1,5 @@
 package com.burntout.burntout;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -13,11 +10,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
-import android.widget.FrameLayout.LayoutParams;
+
 
 public class StatePicker extends Spinner {
 	
+	@SuppressWarnings("unused")
 	private String[] statesArray;
 	private ArrayAdapter<CharSequence> adapter;
 	public Spinner statePicker;
@@ -48,6 +45,7 @@ public class StatePicker extends Spinner {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	public StatePicker(Context context) {
 		
 		super(context);

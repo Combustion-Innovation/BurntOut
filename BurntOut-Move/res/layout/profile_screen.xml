@@ -31,7 +31,7 @@
         android:layout_marginLeft="00dp"
         android:layout_marginRight="00dp"
         android:layout_marginTop="00dp"
-        android:background="@color/transparent_black"
+        android:gravity="left"
         android:orientation="vertical" >
 
     <FrameLayout
@@ -46,40 +46,41 @@
         <com.burntout.burntout.NotificationsListView
             android:id="@+id/notifications_listview"
             android:layout_width="300dp"
-            android:layout_gravity="center_horizontal"
-
-        	android:layout_marginTop="20dp"
+            android:layout_height="485dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/corner_bg"
-            android:clipChildren="true"
-            android:layout_height="465dp" >
+            android:clipChildren="true" >
+
         </com.burntout.burntout.NotificationsListView>
 
         <ImageButton
             android:id="@+id/hdeNotifications"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
             android:background="@null"
-            android:scaleType="fitCenter"
             android:onClick="hideNotificationView"
-            android:src="@drawable/alert_button" />
+            android:scaleType="fitCenter"
+            android:src="@drawable/pressednotification_2x" />
 
         <com.burntout.burntout.PageMarkers
             android:id="@+id/pageMarkersNotifications"
-            android:layout_marginTop="465dp"
             android:layout_width="fill_parent"
-           android:layout_alignParentBottom="true"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="485dp" >
+
         </com.burntout.burntout.PageMarkers>
 
     </FrameLayout>
     
     </LinearLayout>
-    <FrameLayout
+    <FrameLayout
         android:id="@+id/frameLayout1"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="122dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="30dp" >
@@ -91,41 +92,31 @@
 
             <RelativeLayout
                 android:id="@+id/profilepicholder"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_alignParentTop="true"
+                android:layout_width="115dp"
+                android:layout_height="115dp"
                 android:layout_centerHorizontal="true"
-               	android:background="@drawable/rounded_blue"
-               >
+                android:background="@drawable/rounded_blue"
+                android:gravity="center" >
 
                 <com.pkmmte.circularimageview.CircularImageView
                     android:id="@+id/profilepic"
-                    android:layout_width="125dp"
-                    android:layout_height="125dp"
-                    android:layout_alignParentTop="true"
+                    android:layout_width="114dp"
+                    android:layout_height="114dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="4dp"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/rounded_blue"
                     android:clickable="true"
                     android:onClick="changePicture"
-                    android:scaleType="centerInside"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/profileplaceholder"
                     app:selector="true"
                     app:selector_color="#00609233"
                     app:selector_stroke_color="@color/button_blue"
-                    app:selector_stroke_width="3dp" />
+                    app:selector_stroke_width="2dp" />
 
             </RelativeLayout>
-
-            <ImageButton
-                android:id="@+id/edit_button"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:background="#00000000"
-                android:onClick="notificationsClick"
-                android:scaleType="fitXY"
-                android:src="@drawable/alert_button" />
 
             <ImageButton
                 android:id="@+id/imageButton2"
@@ -138,6 +129,17 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/settings" />
 
+            <ImageButton
+                android:id="@+id/edit_button"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:background="#00000000"
+                android:onClick="notificationsClick"
+                android:scaleType="fitXY"
+                android:src="@drawable/alert_button" />
+
         </RelativeLayout>
 
     </FrameLayout>
@@ -148,6 +150,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/frameLayout1"
+        android:layout_marginTop="4dp"
         android:gravity="center"
         android:text="Daniel Nasello"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -355,4 +358,14 @@
     </com.burntout.burntout.PageMarkers>
 </RelativeLayout>
 </ScrollView>
+
+    <ImageView
+        android:id="@+id/dummy_button"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginLeft="90dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/pressednotification_2x"
+        android:visibility="gone" />
+
 </RelativeLayout>

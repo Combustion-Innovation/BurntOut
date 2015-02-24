@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
+    android:layout_height="480dp"
     android:layout_gravity="center"
-    android:layout_height="460dp"
     android:orientation="vertical"
     android:topLeftRadius="20dp" >
 
@@ -38,7 +38,7 @@
         android:id="@+id/reported_ago"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="TextView"
         android:textColor="#ffffff"
@@ -54,7 +54,7 @@
             android:id="@+id/personal_message"
             android:layout_width="230dp"
             android:layout_height="75dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/bluebox" >
@@ -111,10 +111,10 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="150dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/bluebox"
         android:clipChildren="false" >
 
@@ -122,17 +122,22 @@
             android:id="@+id/personpropicholder"
             android:layout_width="76dp"
             android:layout_height="76dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/rounded_blue" >
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/rounded_blue"
+            android:gravity="center" >
 
             <com.pkmmte.circularimageview.CircularImageView
                 android:id="@+id/mypropic"
-                android:layout_width="66dp"
-                android:layout_height="66dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
+                android:layout_width="74dp"
+                android:layout_height="74dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="1dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/avatarplaceholder_2x" />
+
         </RelativeLayout>
 
         <TextView
@@ -264,9 +269,9 @@
             android:id="@+id/washelpful"
             android:layout_width="100dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="150dp"
             android:layout_marginTop="6dp"
-            android:background="@drawable/blue_no_corner"
+            android:background="@drawable/bluewithborder"
             android:text="YES"
             android:textColor="#ffffff"
             android:textSize="18dp" />
@@ -275,9 +280,9 @@
             android:id="@+id/wasnothelpful"
             android:layout_width="100dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="150dp"
+            android:layout_marginLeft="50dp"
             android:layout_marginTop="6dp"
-            android:background="@drawable/bluewithborder"
+            android:background="@drawable/blue_no_corner"
             android:text="NO"
             android:textColor="#ffffff"
             android:textSize="18dp" />

@@ -94,12 +94,13 @@ public class ChangePasswordActivity extends Activity implements Post.Communicato
 					getString(R.string.pref), Context.MODE_PRIVATE);
 			   
 					String email = sharedPref.getString("email", "no");
+					@SuppressWarnings("unused")
 					String oldpassword = sharedPref.getString("password", "no");
 					
 						
 						
 					
-							pm = new ProgressDialog(this);
+							pm = new ProgressDialog(this, R.style.MyTheme);
 							pm.show();
 				
 							login = new Post();

@@ -1,6 +1,6 @@
 package com.burntout.burntout;
 
-import java.io.Serializable;
+
 import java.util.ArrayList;
 
 import org.apache.http.NameValuePair;
@@ -17,8 +17,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -43,11 +41,13 @@ public class EditVehicleActivity extends Activity implements Post.Communicator, 
 	public EditText makeModelInput, plateNumInput;
 	public StatePicker statePicker;
 	public VehicleTypeHSV vehicleTypeHSV;
+	@SuppressWarnings("rawtypes")
 	public ArrayAdapter stateAdapter;
 	
 	public boolean wasEdited = false;
 	public boolean profEdited = false;
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -101,6 +101,7 @@ public class EditVehicleActivity extends Activity implements Post.Communicator, 
 		plateNumber = vehicle.getPlateNumber();
 		
 		//make autopicker show vehicle type
+		@SuppressWarnings("unused")
 		int vType = Integer.parseInt(vehicleType);
 		
 		
@@ -147,7 +148,7 @@ public class EditVehicleActivity extends Activity implements Post.Communicator, 
 	
 	public void submitClicked(View v) {
 		
-		pm = new ProgressDialog(this);
+		pm = new ProgressDialog(this, R.style.MyTheme);
 		pm.show();
 		
 		editVehicle = new Post();

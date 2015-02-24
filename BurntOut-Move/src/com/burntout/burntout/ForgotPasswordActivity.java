@@ -93,7 +93,7 @@ public class ForgotPasswordActivity extends Activity implements Post.Communicato
 		}
 		else
 		{
-			pm = new ProgressDialog(this);
+			pm = new ProgressDialog(this, R.style.MyTheme);
 			pm.show();
 
 			login = new Post();
